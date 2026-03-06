@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export const useBookingLogic = () => {
-    // --- 1. STANY (TS sam wnioskuje typy na podstawie wartości startowych) ---
+
     const [name, setName] = useState("");
     const [boat, setBoat] = useState("kajak");
     const [hours, setHours] = useState(1);
@@ -9,7 +9,7 @@ export const useBookingLogic = () => {
     const [payment, setPayment] = useState("cash");
     const [terms, setTerms] = useState(false);
 
-    // --- 2. HANDLERY (Typujemy tylko argumenty wejściowe) ---
+
     const handleNameChange = (val: string) => setName(val);
     const handleBoatChange = (val: string) => setBoat(val);
     const handleHoursChange = (val: number) => setHours(val);
@@ -17,7 +17,7 @@ export const useBookingLogic = () => {
     const handlePaymentChange = (val: string) => setPayment(val);
     const toggleTerms = () => setTerms(!terms);
 
-    // --- 3. EKSPORT ---
+
     return {
         state: { name, boat, hours, extra, payment, terms },
         actions: {
