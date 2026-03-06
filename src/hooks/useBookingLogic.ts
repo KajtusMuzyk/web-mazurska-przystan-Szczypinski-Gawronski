@@ -1,7 +1,13 @@
 import { useState } from 'react';
 
-export const useBookingLogic = () => {
+const PRICES: { [key: string]: number } = {
+    kajak: 25,
+    rower: 40,
+    omega: 30,
+    instructor: 150
+};
 
+export const useBookingLogic = () => {
     const [name, setName] = useState("");
     const [boat, setBoat] = useState("kajak");
     const [hours, setHours] = useState(1);
@@ -9,6 +15,9 @@ export const useBookingLogic = () => {
     const [payment, setPayment] = useState("cash");
     const [terms, setTerms] = useState(false);
 
+    const basePrice = PRICES[boat] || 0;
+    const totalPrice = (basePrice * hours) + (extra ? PRICES.instructor : 0);
+    const isLicenseRequired = boat === "omega";
 
     const handleNameChange = (val: string) => setName(val);
     const handleBoatChange = (val: string) => setBoat(val);
@@ -17,9 +26,17 @@ export const useBookingLogic = () => {
     const handlePaymentChange = (val: string) => setPayment(val);
     const toggleTerms = () => setTerms(!terms);
 
-
     return {
-        state: { name, boat, hours, extra, payment, terms },
+        state: {
+            name,
+            boat,
+            hours,
+            extra,
+            payment,
+            terms,
+            totalPrice,
+            isLicenseRequired
+        },
         actions: {
             handleNameChange,
             handleBoatChange,
