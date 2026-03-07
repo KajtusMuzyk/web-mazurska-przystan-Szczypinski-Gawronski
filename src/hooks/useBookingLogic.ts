@@ -32,6 +32,21 @@ export const useBookingLogic = () => {
     const handlePaymentChange = (val: string) => setPayment(val);
     const toggleTerms = () => setTerms(!terms);
 
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!isFormValid) return;
+
+        alert(`Rezerwacja udana!\nKlient: ${name}\nSprzęt: ${boat}\nDo zapłaty: ${totalPrice} PLN`);
+
+        setName("");
+        setBoat("kajak");
+        setHours(1);
+        setExtra(false);
+        setPayment("cash");
+        setTerms(false);
+    };
+
     return {
         state: {
             name,
@@ -51,7 +66,8 @@ export const useBookingLogic = () => {
             handleHoursChange,
             toggleExtra,
             handlePaymentChange,
-            toggleTerms
+            toggleTerms,
+            handleSubmit
         }
     };
 };
