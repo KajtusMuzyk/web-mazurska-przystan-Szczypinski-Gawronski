@@ -17,7 +17,13 @@ export const useBookingLogic = () => {
 
     const basePrice = PRICES[boat] || 0;
     const totalPrice = (basePrice * hours) + (extra ? PRICES.instructor : 0);
+
     const isLicenseRequired = boat === "omega";
+    const isFormValid = name.trim().length > 0 && terms === true;
+
+    const errorMessage = (isLicenseRequired && !extra)
+        ? "Uwaga: Wynajęcie Omegi bez instruktora wymaga posiadania patentu żeglarskiego."
+        : "";
 
     const handleNameChange = (val: string) => setName(val);
     const handleBoatChange = (val: string) => setBoat(val);
@@ -35,7 +41,9 @@ export const useBookingLogic = () => {
             payment,
             terms,
             totalPrice,
-            isLicenseRequired
+            isLicenseRequired,
+            isFormValid,
+            errorMessage
         },
         actions: {
             handleNameChange,
